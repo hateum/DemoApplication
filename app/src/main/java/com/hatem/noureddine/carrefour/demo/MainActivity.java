@@ -3,6 +3,7 @@ package com.hatem.noureddine.carrefour.demo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private MainPresenter presenter;
+    private MainAdapter mainAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,13 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         progressBar = (ProgressBar) findViewById(R.id.activity_main_progress);
         presenter = new MainPresenterImpl(this, new FindItemsInteractorImpl(),
                 PreferenceManager.getDefaultSharedPreferences(this));
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mainAdapter = new MainAdapter();
+        recyclerView.setAdapter(mainAdapter);
     }
 
     @Override
@@ -57,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
     @Override
     public void setItems(List<Movie> items) {
         Log.e("TAG", "items : " + items.size());
-//        recyclerView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items));
+        mainAdapter.setItemsList(items);
     }
 
     @Override
