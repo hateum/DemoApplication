@@ -1,5 +1,7 @@
 package com.hatem.noureddine.carrefour.demo;
 
+import android.support.annotation.Nullable;
+
 /**
  * Created by Hatem Noureddine on 23/11/2017.
  *
@@ -8,11 +10,13 @@ package com.hatem.noureddine.carrefour.demo;
 
 public interface MainPresenter {
 
-    void onCreate();
+	void onCreate();
 
-    void onResume();
+	void onResume();
 
-    void onItemClicked(int position);
+	void onItemClicked(int position);
 
-    void onDestroy();
+	void onDestroy();
+
+	void loadData(@Nullable String query);
 }
