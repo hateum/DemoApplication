@@ -5,7 +5,11 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         presenter = new MainPresenterImpl(this, new FindItemsInteractorImpl(),
                 PreferenceManager.getDefaultSharedPreferences(this));
         initRecyclerView();
+        presenter.refreshData();
     }
 
     private void initRecyclerView() {
@@ -40,9 +45,35 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.onResume();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
+        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                presenter.loadData(s);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.app_bar_refresh:
+                presenter.refreshData();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

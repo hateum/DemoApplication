@@ -1,12 +1,12 @@
 package com.hatem.noureddine.carrefour.demo;
 
-import com.hatem.noureddine.carrefour.demo.network.data.Movie;
-
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
+
+import com.hatem.noureddine.carrefour.demo.network.data.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +33,7 @@ public class MainPresenterImpl implements MainPresenter, FindItemsInteractor.OnF
 	}
 
 	@Override
-	public void onCreate() {
-		if (mainView != null) {
-			mainView.showProgress();
-		}
-	}
-
-	@Override
-	public void onResume() {
+	public void refreshData() {
 		if (mainView != null) {
 			mainView.showProgress();
 		}

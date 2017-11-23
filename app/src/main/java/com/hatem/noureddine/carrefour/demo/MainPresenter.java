@@ -10,13 +10,11 @@ import android.support.annotation.Nullable;
 
 public interface MainPresenter {
 
-	void onCreate();
+    void onItemClicked(int position);
 
-	void onResume();
+    void onDestroy();
 
-	void onItemClicked(int position);
+    void refreshData();
 
-	void onDestroy();
-
-	void loadData(@Nullable String query);
+    void loadData(@Nullable String query);
 }

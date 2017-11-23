@@ -22,7 +22,6 @@ import java.util.List;
  */
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainAdapterViewHolder> {
-
     private List<Movie> itemsList;
 
     public MainAdapter() {
@@ -51,6 +50,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainAdapterVie
         this.itemsList = newList;
     }
 
+    public interface OnMovieItemClickListener {
+        void onMovieClickListener(View itemView, Movie movie, int position);
+    }
+
     static class MainAdapterViewHolder extends RecyclerView.ViewHolder {
         private Movie movie;
         private int position;
@@ -76,6 +79,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainAdapterVie
             titleFilm.setText(movie.title);
             dateFilm.setText(String.valueOf(movie.year));
             RemoteImageDataManager.create().getImageFromNetworkAsync(imgFilm, movie.posters.thumbnail);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
         }
     }
