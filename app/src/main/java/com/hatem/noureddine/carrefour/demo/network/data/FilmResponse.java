@@ -7,9 +7,18 @@ import java.util.ArrayList;
 public class FilmResponse {
 
     @SerializedName("movies")
-    public ArrayList<Movie> movies = null;
+    ArrayList<Movie> movies = null;
+    long lastTimeStamp;
 
     public ArrayList<Movie> getMovies() {
         return movies;
+    }
+
+    public long getLastTimeStamp() {
+        return lastTimeStamp;
+    }
+
+    public void setLastTimeStamp(long lastTimeStamp) {
+        this.lastTimeStamp = lastTimeStamp;
     }
 }

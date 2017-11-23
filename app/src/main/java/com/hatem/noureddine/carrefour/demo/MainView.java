@@ -1,5 +1,7 @@
 package com.hatem.noureddine.carrefour.demo;
 
+import com.hatem.noureddine.carrefour.demo.network.data.Movie;
+
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ public interface MainView {
 
     void hideProgress();
 
-    void setItems(List<String> items);
+    void setItems(List<Movie> items);
 
     void showMessage(String message);
 }

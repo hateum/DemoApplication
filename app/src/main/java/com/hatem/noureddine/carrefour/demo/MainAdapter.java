@@ -1,15 +1,11 @@
 package com.hatem.noureddine.carrefour.demo;
 
-import android.databinding.DataBindingUtil;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ygl_consulting.myfluxrss.databinding.ItemNewsLayoutBinding;
-import com.ygl_consulting.myfluxrss.models.News;
-import com.ygl_consulting.myfluxrss.viewmodels.ItemNewsViewModel;
+import com.hatem.noureddine.carrefour.demo.network.data.Movie;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +18,7 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainAdapterViewHolder> {
 
-    private List<String> itemsList;
+    private List<Movie> itemsList;
 
     public MainAdapter() {
         this.itemsList = Collections.emptyList();
@@ -44,9 +40,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainAdapterVie
         return itemsList.size();
     }
 
-    public void setItemsList(List<String> newList) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffNewsCallback(itemsList, newList));
-        diffResult.dispatchUpdatesTo(this);
+    public void setItemsList(List<Movie> newList) {
+//        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffMoviesCallback(itemsList, newList));
+//        diffResult.dispatchUpdatesTo(this);
         this.itemsList = newList;
     }
 
@@ -56,13 +52,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainAdapterVie
             super(viewItem);
         }
 
-        void bindNews(News news) {
-            if (mItemNewsBinding.getNewsItemViewModel() == null) {
-                ItemNewsViewModel itemNewsViewModel = new ItemNewsViewModel(news, itemView.getContext());
-                mItemNewsBinding.setNewsItemViewModel(itemNewsViewModel);
-            } else {
-                mItemNewsBinding.getNewsItemViewModel().setNews(news);
-            }
+        void bindNews(Movie movie) {
+
         }
     }
 }

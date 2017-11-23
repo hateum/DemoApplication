@@ -1,5 +1,10 @@
 package com.hatem.noureddine.carrefour.demo;
 
+import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+
+import com.hatem.noureddine.carrefour.demo.network.data.Movie;
+
 import java.util.List;
 
 /**
@@ -9,9 +14,9 @@ import java.util.List;
  */
 
 public interface FindItemsInteractor {
-    interface OnFinishedListener {
-        void onFinished(List<String> items);
-    }
+    void findItems(@NonNull SharedPreferences sharedPreferences, OnFinishedListener listener);
 
-    void findItems(OnFinishedListener listener);
+    interface OnFinishedListener {
+        void onFinished(List<Movie> items);
+    }
 }

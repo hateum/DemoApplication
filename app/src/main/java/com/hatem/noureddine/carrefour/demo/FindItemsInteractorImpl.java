@@ -1,9 +1,13 @@
 package com.hatem.noureddine.carrefour.demo;
 
-import android.os.Handler;
+import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
-import java.util.Arrays;
-import java.util.List;
+import com.hatem.noureddine.carrefour.demo.network.MoviesDataManager;
+import com.hatem.noureddine.carrefour.demo.network.data.Movie;
+
+import java.util.ArrayList;
 
 /**
  * Created by Hatem Noureddine on 23/11/2017.
@@ -14,27 +18,17 @@ import java.util.List;
 public class FindItemsInteractorImpl implements FindItemsInteractor {
 
     @Override
-    public void findItems(final OnFinishedListener listener) {
-        new Handler().postDelayed(new Runnable() {
+    public void findItems(@NonNull SharedPreferences sharedPreferences, final OnFinishedListener listener) {
+        MoviesDataManager.create().getMoviesListAsync(sharedPreferences, new MoviesDataManager.Callback() {
             @Override
-            public void run() {
-                listener.onFinished(createArrayList());
+            public void onSucces(@NonNull ArrayList<Movie> movies) {
+                listener.onFinished(movies);
             }
-        }, 2000);
-    }
 
-    private List<String> createArrayList() {
-        return Arrays.asList(
-                "Item 1",
-                "Item 2",
-                "Item 3",
-                "Item 4",
-                "Item 5",
-                "Item 6",
-                "Item 7",
-                "Item 8",
-                "Item 9",
-                "Item 10"
-        );
+            @Override
+            public void onFail() {
+                Log.e("TAG", "onFail");
+            }
+        });
     }
 }

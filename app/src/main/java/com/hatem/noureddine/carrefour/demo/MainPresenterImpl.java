@@ -1,5 +1,9 @@
 package com.hatem.noureddine.carrefour.demo;
 
+import android.content.SharedPreferences;
+
+import com.hatem.noureddine.carrefour.demo.network.data.Movie;
+
 import java.util.List;
 
 /**
@@ -8,14 +12,16 @@ import java.util.List;
  * @version 1.0
  */
 
-public class MainPresenterImpl  implements MainPresenter, FindItemsInteractor.OnFinishedListener {
+public class MainPresenterImpl implements MainPresenter, FindItemsInteractor.OnFinishedListener {
 
     private MainView mainView;
+    private SharedPreferences sharedPreferences;
     private FindItemsInteractor findItemsInteractor;
 
-    public MainPresenterImpl(MainView mainView, FindItemsInteractor findItemsInteractor) {
+    public MainPresenterImpl(MainView mainView, FindItemsInteractor findItemsInteractor, SharedPreferences sharedPreferences) {
         this.mainView = mainView;
         this.findItemsInteractor = findItemsInteractor;
+        this.sharedPreferences = sharedPreferences;
     }
 
     @Override
@@ -24,7 +30,7 @@ public class MainPresenterImpl  implements MainPresenter, FindItemsInteractor.On
             mainView.showProgress();
         }
 
-        findItemsInteractor.findItems(this);
+        findItemsInteractor.findItems(sharedPreferences, this);
     }
 
     @Override
@@ -33,7 +39,7 @@ public class MainPresenterImpl  implements MainPresenter, FindItemsInteractor.On
             mainView.showProgress();
         }
 
-        findItemsInteractor.findItems(this);
+        findItemsInteractor.findItems(sharedPreferences, this);
     }
 
     @Override
@@ -49,7 +55,7 @@ public class MainPresenterImpl  implements MainPresenter, FindItemsInteractor.On
     }
 
     @Override
-    public void onFinished(List<String> items) {
+    public void onFinished(List<Movie> items) {
         if (mainView != null) {
             mainView.setItems(items);
             mainView.hideProgress();
