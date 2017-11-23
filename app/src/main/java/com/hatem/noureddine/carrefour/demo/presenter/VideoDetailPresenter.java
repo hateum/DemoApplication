@@ -10,5 +10,4 @@ package com.hatem.noureddine.carrefour.demo.presenter;
  */
 public interface VideoDetailPresenter {
 
-
 }
